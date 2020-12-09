@@ -1,0 +1,11 @@
+html,body,#root,.App{
+  height: 100%;
+  width: 100%;
+}
+
+#landing{
+  background: url('https://i.imgur.com/rGLKfFt.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

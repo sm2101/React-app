@@ -1,3 +1,5 @@
+const { countDocuments } = require('../../models/User');
+
 const express               = require('express'),
 	  router                = express.Router(),
 	  User                  = require("../../models/User"),
@@ -16,9 +18,8 @@ router.get('/test' ,(req,res) =>{
    // registration route
 
 router.post('/register', (req,res) =>{
-	
-	const{err,isValid} = validateRegisterInput(req.body);
-	
+	console.log('request-registered')
+	const{errors,isValid} = validateRegisterInput(req.body);
 	if(!isValid){
 		return res.status(400).json(err);
 	}
@@ -27,9 +28,8 @@ router.post('/register', (req,res) =>{
 		email :req.body.email
 	}).then((user) =>{
 		if(user){
-			return res.status(400).json({
-				email:'Email already exists'
-			})
+			errors.emaill = "Email already exist";
+			return res.status(400).json(errors)
 		} else {
 			const newUser = new User({
 				name:req.body.name,
@@ -37,8 +37,9 @@ router.post('/register', (req,res) =>{
 				avatar:'https://i.imgur.com/rQ0wDAq.jpg',
 				password: req.body.password
 			});
-			
-			bcrypt.genSalt(10 ,(err,salt) =>{
+			console.log(req.body.password);
+			console.log(newUser);
+			bcrypt.genSalt(10, function(err,salt){
 				bcrypt.hash(newUser.password, salt, (err ,hash) =>{
 					if(err){
 						throw err;

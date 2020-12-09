@@ -9,7 +9,6 @@ module.exports = function validateRegisterInput(data){
 	data.email     = !isEmpty(data.email)? data.email :'';
 	data.password  = !isEmpty(data.password)? data.password :'';
 	data.password2 = !isEmpty(data.password2)? data.password2 :'';
-	
 	if(!validator.isLength(data.name, {min :2, max:30})){
 		err.name = 'Name must be between 2 to 30 charachters';
 	}

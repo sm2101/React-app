@@ -7,9 +7,10 @@ const express    = require('express'),
 	  db         = require('./config/keys').mongoURL,
 	  usr        = require("./routes/api/users"),
 	  profile    = require("./routes/api/profile"),
-	  posts      = require("./routes/api/posts");
+	  posts      = require("./routes/api/posts"),
+	  cors       = require('cors');
 
-
+app.use(cors());
 // DB CONNECT
 mongoose.connect(db,{
 	useNewUrlParser: true,
