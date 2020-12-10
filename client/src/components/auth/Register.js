@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
+import {connect} from 'react-redux';
+import {registerUser} from '../../actions/authActions';
 class Register extends Component {
     constructor(props){
         super(props);
@@ -9,7 +12,7 @@ class Register extends Component {
             email :'',
             password:'',
             password2:'',
-            err:{}
+            errors:{}
         }
         this.handleChange  = this.handleChange.bind(this);
         this.handleSubmit  = this.handleSubmit.bind(this);
@@ -31,12 +34,15 @@ handleSubmit(event){
     axios.post('http://localhost:5000/api/users/register',newUser).then(res =>{
         console.log(res.data);
     }).catch(err =>{
-        console.log(err);
+        this.setState({errors : err.response.data});
     })
 }
 
 
     render() {
+        const { errors } = this.state;
+
+        const {user} = this.props;
         return (
             <div className = 'register h-100'>
                 <div className="container-fluid m-0 p-0 h-100">
@@ -54,48 +60,60 @@ handleSubmit(event){
                                     <input 
                                     type="text" 
                                     id = "name"
-                                    className="form-control form-control-lg"
+                                    className={classnames("form-control form-control-lg",{
+                                        'is-invalid':errors.name
+                                    })}
                                     placeholder= 'Name'
                                     name = 'name'
                                     value = {this.state.name}
                                     onChange = {this.handleChange}
                                     />
+                                    {errors.name && (<div className = 'invalid-feedback'>{errors.name}</div>)}
                                 </div>
                                 <div className="form-group mb-2">
                                     <label htmlFor = "email" className = "form-label">Email:</label>
                                     <input 
                                     type="email" 
                                     id = "email"
-                                    className="form-control form-control-lg"
+                                    className={classnames("form-control form-control-lg",{
+                                        'is-invalid':errors.email
+                                    })}
                                     placeholder= 'Email'
                                     name = 'email'
                                     value = {this.state.email}
                                     onChange = {this.handleChange}
                                     />
+                                    {errors.email && (<div className = 'invalid-feedback'>{errors.email}</div>)}
                                 </div>
                                 <div className="form-group mb-2">
                                     <label htmlFor = "pass" className = "form-label">Password:</label>
                                     <input 
                                     type="password" 
                                     id = "pass"
-                                    className="form-control form-control-lg"
+                                    className={classnames("form-control form-control-lg",{
+                                        'is-invalid':errors.password
+                                    })}
                                     placeholder= 'Password'
                                     name = 'password'
                                     value = {this.state.password}
                                     onChange = {this.handleChange}
                                     />
+                                    {errors.password && (<div className = 'invalid-feedback'>{errors.password}</div>)}
                                 </div>
                                 <div className="form-group mb-2">
                                     <label htmlFor = "pass2" className = "form-label">Confirm Password:</label>
                                     <input 
                                     type="password" 
                                     id = "pass2"
-                                    className="form-control form-control-lg"
+                                    className={classnames("form-control form-control-lg",{
+                                        'is-invalid':errors.password2
+                                    })}
                                     placeholder= 'Confirm Password'
                                     name = 'password2'
                                     value = {this.state.password2}
                                     onChange = {this.handleChange}
                                     />
+                                    {errors.password2 && (<div className = 'invalid-feedback'>{errors.password2}</div>)}
                                 </div>
                                 <input 
                                 type = "submit" 
@@ -112,4 +130,11 @@ handleSubmit(event){
     }
 }
 
-export default Register;
+Register.propTypes = {
+    registerUser :PropTypes.func.isRequired,
+    auth:PropTypes.object.isRequired
+}
+const mapStatetoProps = (state) =>({
+    auth:state.auth
+})
+export default connect(null,{ registerUser})(Register);

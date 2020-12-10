@@ -18,17 +18,16 @@ router.get('/test' ,(req,res) =>{
    // registration route
 
 router.post('/register', (req,res) =>{
-	console.log('request-registered')
 	const{errors,isValid} = validateRegisterInput(req.body);
 	if(!isValid){
-		return res.status(400).json(err);
+		return res.status(400).json(errors);
 	}
 	
 	User.findOne({
 		email :req.body.email
 	}).then((user) =>{
 		if(user){
-			errors.emaill = "Email already exist";
+			errors.email = "Email already exist";
 			return res.status(400).json(errors)
 		} else {
 			const newUser = new User({
