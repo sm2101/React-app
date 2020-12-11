@@ -17,7 +17,7 @@ router.get('/test' ,(req,res) =>{
 
    // registration route
 
-router.post('/register', (req,res) =>{
+router.post('/register', (req,res,next) =>{
 	const{errors,isValid} = validateRegisterInput(req.body);
 	if(!isValid){
 		return res.status(400).json(errors);
