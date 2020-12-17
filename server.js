@@ -34,11 +34,6 @@ app.use(passport.initialize());
 
 require('./config/passport')(passport);
 
-app.get('/',(req,res)=>{
-	res.send("hello");
-})
-
-
 app.use('/api/users',usr);
 app.use('/api/profile',profile);
 app.use('/api/posts',posts);
