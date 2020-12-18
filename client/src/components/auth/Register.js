@@ -4,6 +4,7 @@ import {withRouter} from 'react-router-dom';
 import classnames from 'classnames';
 import {connect} from 'react-redux';
 import {registerUser} from '../../actions/authActions';
+import TextFieldGroup from '../common/TextFieldGroup';
 class Register extends Component {
     constructor(){
         super();
@@ -60,66 +61,43 @@ handleSubmit(event){
                                 Create your potterhead account
                             </p>
                             <form>
-                                <div className="form-group mb-2">
-                                    <label htmlFor = "name" className = "form-label">Name:</label>
-                                    <input 
-                                    type="text" 
-                                    id = "name"
-                                    className={classnames("form-control form-control-lg",{
-                                        'is-invalid':errors.name
-                                    })}
-                                    placeholder= 'Name'
-                                    name = 'name'
-                                    value = {this.state.name}
-                                    onChange = {this.handleChange}
-                                    />
-                                    {errors.name && (<div className = 'invalid-feedback'>{errors.name}</div>)}
-                                </div>
-                                <div className="form-group mb-2">
-                                    <label htmlFor = "email" className = "form-label">Email:</label>
-                                    <input 
-                                    type="email" 
-                                    id = "email"
-                                    className={classnames("form-control form-control-lg",{
-                                        'is-invalid':errors.email
-                                    })}
-                                    placeholder= 'Email'
-                                    name = 'email'
-                                    value = {this.state.email}
-                                    onChange = {this.handleChange}
-                                    />
-                                    {errors.email && (<div className = 'invalid-feedback'>{errors.email}</div>)}
-                                </div>
-                                <div className="form-group mb-2">
-                                    <label htmlFor = "pass" className = "form-label">Password:</label>
-                                    <input 
-                                    type="password" 
-                                    id = "pass"
-                                    className={classnames("form-control form-control-lg",{
-                                        'is-invalid':errors.password
-                                    })}
-                                    placeholder= 'Password'
-                                    name = 'password'
-                                    value = {this.state.password}
-                                    onChange = {this.handleChange}
-                                    />
-                                    {errors.password && (<div className = 'invalid-feedback'>{errors.password}</div>)}
-                                </div>
-                                <div className="form-group mb-2">
-                                    <label htmlFor = "pass2" className = "form-label">Confirm Password:</label>
-                                    <input 
-                                    type="password" 
-                                    id = "pass2"
-                                    className={classnames("form-control form-control-lg",{
-                                        'is-invalid':errors.password2
-                                    })}
-                                    placeholder= 'Confirm Password'
-                                    name = 'password2'
-                                    value = {this.state.password2}
-                                    onChange = {this.handleChange}
-                                    />
-                                    {errors.password2 && (<div className = 'invalid-feedback'>{errors.password2}</div>)}
-                                </div>
+                                <TextFieldGroup 
+                                placeholder = "Name"
+                                name = "name"
+                                type = "text"
+                                value = {this.state.name}
+                                onChange = {this.handleChange}
+                                error = {errors.name}
+                                label = 'Name'
+                                />
+                                <TextFieldGroup 
+                                placeholder = "Email"
+                                name = "email"
+                                type = "email"
+                                value = {this.state.email}
+                                onChange = {this.handleChange}
+                                error = {errors.email}
+                                label = 'Email'
+                                />
+                                <TextFieldGroup 
+                                placeholder = "Password"
+                                name = "password"
+                                type = "password"
+                                value = {this.state.password}
+                                onChange = {this.handleChange}
+                                error = {errors.password}
+                                label = 'Password'
+                                />
+                                <TextFieldGroup 
+                                placeholder = "Confirm Password"
+                                name = "password2"
+                                type = "password"
+                                value = {this.state.password2}
+                                onChange = {this.handleChange}
+                                error = {errors.password2}
+                                label = 'Confirm Password'
+                                />
+                                
                                 <input 
                                 type = "submit" 
                                 className = "btn btn-secondary w-100 form-control" 

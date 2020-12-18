@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {loginUser} from '../../actions/authActions';
 import classnames from 'classnames';
+import TextFieldGroup from '../common/TextFieldGroup';
 
 class Login extends Component {
     constructor(){
@@ -50,38 +51,30 @@ class Login extends Component {
             <ul className = "navbar-nav mb-2 mb-lg-0">
                 <li className="nav-item">
                 <form className="d-flex">
-                    <input 
-                    className={classnames("form-control me-2",{
-                        'is-invalid':errors.loginEmail
-                    })}
-                    type="email" 
-                    value = {this.state.email} 
-                    onChange = {this.handleChange} 
-                    placeholder="Email" 
-                    name = "email" 
+                    <TextFieldGroup 
+                    placeholder = "Email Address"
+                    name = "email"
+                    type = "email"
+                    value = {this.state.email}
+                    onChange = {this.handleChange}
+                    error = {errors.loginEmail}
                     />
-                    {errors.loginEmail && (
-                        <div className = "invalid-feedback">{errors.loginEmail}</div>
-                    )}
-                    <input 
-                    className={classnames("form-control me-2",{
-                        'is-invalid':errors.loginPassword
-                    })} 
-                    type="password" 
-                    value = {this.state.password} 
-                    onChange = {this.handleChange} 
-                    placeholder="Password" 
-                    name = "password" 
+                    <TextFieldGroup 
+                    placeholder = "Password"
+                    name = "password"
+                    type = "password"
+                    value = {this.state.password}
+                    onChange = {this.handleChange}
+                    error = {errors.loginPassword}
                     />
-                    {errors.loginPassword && (
-                        <div className = "invalid-feedback">{errors.loginPassword}</div>
-                    )}
+                    <div>
                     <input 
                     className="btn btn-outline-success" 
                     type="submit" 
                     value = "Login" 
                     onClick = {this.handleSubmit}
                     />
+                    </div>
                 </form>
                 </li>
             </ul>
