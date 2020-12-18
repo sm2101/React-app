@@ -72,7 +72,7 @@ router.post('/login', (req,res) =>{
 		email
 	}).then((user) =>{
 		if(!user) {
-			err.email = "User not found"
+			err.loginEmail = "User not found"
 			return res.status(404).json(err)
 		}
 // 		pass check
@@ -80,16 +80,16 @@ router.post('/login', (req,res) =>{
 			if(isMatch){
 // 				user match
 				const payLoad = {
-					id:user['_id'],
+					id:user.id,
 					name:user.name,
 					avatar:user.avatar
 				}
 // 				sign token
 				jwt.sign(
 					payLoad, 
-					keys.secret, 
+					keys.secretOrKey, 
 					{
-					expiresIn:3600 
+					expiresIn:7200 
 					}, 
 					(err,token) => {
 						res.json({
@@ -98,7 +98,7 @@ router.post('/login', (req,res) =>{
 						})
 					});
 			} else {
-				err.password = 'Password Incorrect';
+				err.loginPassword = 'Password Incorrect';
 				return res.status(400).json(err)
 			}
 		})

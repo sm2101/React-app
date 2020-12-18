@@ -10,7 +10,7 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
-import { setCurrentUser} from './actions/authActions';
+import { logoutUser, setCurrentUser} from './actions/authActions';
 
 
 // check token
@@ -20,6 +20,13 @@ if(localStorage.jwtToken){
     //  decode
     const decoded = jwt_decode(localStorage.jwtToken);
     store.dispatch(setCurrentUser(decoded));
+
+    // expired token
+    const currentTime = Date.now()/1000;
+    if(decoded.exp < currentTime){
+        store.dispatch(logoutUser());
+        window.location.href = '/';
+    }
 }
 
 function App(){

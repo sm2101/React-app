@@ -16,6 +16,12 @@ class Login extends Component {
         this.handleSubmit  = this.handleSubmit.bind(this);
     }
 
+    componentDidMount(){
+        if(this.props.auth.isAuthenticated){
+            this.props.history.push('/dashboard');
+        }
+    }
+
     handleChange(ele){
         this.setState({
             [ele.target.name]:ele.target.value
