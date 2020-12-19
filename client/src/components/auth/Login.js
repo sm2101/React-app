@@ -17,18 +17,20 @@ class Login extends Component {
         this.handleSubmit  = this.handleSubmit.bind(this);
     }
 
-    componentDidMount(){
-        if(this.props.auth.isAuthenticated){
-            this.props.history.push('/dashboard');
-        }
-    }
 
     handleChange(ele){
         this.setState({
             [ele.target.name]:ele.target.value
         })
     }
-    componentWillReceiveProps(nextProps){
+    componentDidMount(){
+        console.log(this.props.auth);
+        if(this.props.auth.isAuthenticated){
+            this.props.history.push('/dashboard');
+        }
+    }
+    UNSAFE_componentWillReceiveProps(nextProps){
+        console.log(nextProps)
         if(nextProps.auth.isAuthenticated){
             this.props.history.push('/dashboard');
         }
@@ -67,7 +69,7 @@ class Login extends Component {
                     onChange = {this.handleChange}
                     error = {errors.loginPassword}
                     />
-                    <div>
+                    <div className = "form-group m-2">
                     <input 
                     className="btn btn-outline-success" 
                     type="submit" 
